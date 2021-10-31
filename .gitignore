@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-*skeleton.R
-.gitignore
+*skeleton*
+
