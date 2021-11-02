@@ -7,3 +7,6 @@ Data/*
 !Data/l1_teams_travels.csv
 Day*/*.pdf
 Day*/*twitter.png
+Day*/*.aux
+Day*/*.log
+Day*/*.gz
