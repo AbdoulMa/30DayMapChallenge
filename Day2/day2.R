@@ -6,6 +6,7 @@ library(ggtext)
 
 # Data Reading and Wrangling ----------------------------------------------
 teams_travels <- read_csv("Data/l1_teams_travels.csv")
+# France Regions Shapefile
 regions <- read_sf("Data/regions-20180101-shp/regions-20180101.shp")
 (regions <- regions %>% 
     filter(!code_insee %in% c("01","02","03","04","06")) # Exclusion des communes d'Outre-Mer
