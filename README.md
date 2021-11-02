@@ -7,9 +7,9 @@ Code and plots of the submissions to the [#30DayMapChallenge](https://github.com
 ___
 ## Day 1 - Points
 
-![](Day1)
+![](Day1/day1.png)
 
 ___
 ## Day 2 - Lines
 
-![](Day2)
+![](Day2/day2.png)
