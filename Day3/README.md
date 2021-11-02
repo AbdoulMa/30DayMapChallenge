@@ -1,4 +1,4 @@
 
 ## Day 3 - Polygons
 
-![](day3.png)
+![](day3_polished.png)
