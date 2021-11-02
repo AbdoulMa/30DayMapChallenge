@@ -8,3 +8,8 @@ ___
 ## Day 1 - Points
 
 ![](Day1/day1.png)
+
+___
+## Day 2 - Lines
+
+![](Day2/day2.png)

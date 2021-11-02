@@ -3,4 +3,6 @@
 .RData
 .Ruserdata
 *skeleton*
-
+Data/*
+Day*/*.pdf
+Day*/*twitter.png
