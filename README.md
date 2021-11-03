@@ -13,3 +13,13 @@ ___
 ## Day 2 - Lines
 
 <a href="Day2"><img src="Day2/day2.png"/></a>
+
+___
+## Day 3 - Polygons
+
+<a href="Day3"><img src="Day3/day3_polished.png"/></a>
+
+___
+## Day 4 - Hexagons
+
+<a href="Day4"><img src="Day4/day4.png"/></a>
