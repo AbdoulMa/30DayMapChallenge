@@ -109,7 +109,7 @@ ggdraw() +
   draw_plot(map, 0,0, 1,1) + 
   draw_plot(legend, .75, .05, 0.2,.2) + 
   theme(
-    plot.background = element_rect(fill = "#F7F7F7")
+    plot.background = element_rect(fill = "#F7F7F7", color = NA)
   )
 
 # Saving ------------------------------------------------------------------
