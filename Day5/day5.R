@@ -113,7 +113,7 @@ ggplot() +
        <span style='font-size:20px;'>#30DayMapChallenge Day 5 : OpenStreetMap ⋅ Abdoul ISSA BIDA</span>") + 
   theme_void() + 
   theme(plot.caption = element_markdown(hjust = .5, family = "Operator SSm Book", face = "bold"),
-        plot.background = element_rect(fill = "grey98", color = NA),
+        plot.background = element_rect(fill = "#F3F6F7", color = NA),
         plot.margin = margin(b = 25)) 
 
 # Saving ------------------------------------------------------------------
@@ -122,6 +122,6 @@ ggsave(glue::glue("{path}.pdf"), width = 7.5, height =7.5, device = cairo_pdf)
 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}.pdf"), 
-  filenames = glue::glue("{path}_twitter.png"),
-  dpi = 320
+  filenames = glue::glue("{path}.png"),
+  dpi = 640
 )
