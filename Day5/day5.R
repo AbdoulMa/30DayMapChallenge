@@ -76,6 +76,7 @@ center_proj <-
   tibble(lat = center["lat"], long = center["long"]) %>%
   st_as_sf(coords = c("long", "lat"), crs = 4326)
 
+# "EPSG:4326"
 dist <-  3500
 circle <- tibble(lat = center["lat"], long = center["long"]) %>%
   st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
