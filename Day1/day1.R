@@ -40,9 +40,10 @@ africa_dots <- world %>%
   dplyr::select(admin, mapcolor7) %>% 
   left_join(dots, by = c("admin" = "country")) 
 
-
 # Graphic -----------------------------------------------------------------
 palette <- c("#8931EF", "#F2CA19", "#FF00BD" , "#0057E9", "#87E911", "#E11845", "#FF8A12") 
+
+# 2021 Version ----
 africa_dots %>% 
   ggplot() + 
   geom_point(aes(x = long, y = lat, color = factor(mapcolor7)), size = .95) + 
@@ -66,11 +67,30 @@ africa_dots %>%
     plot.caption = element_text(size = rel(1.125), hjust = .5, color = "white", family = "Gotham Medium", margin = margin(b = 15))
   )
 
-
+# 2022 Version ---- 
+africa_dots %>% 
+  ggplot() + 
+  geom_point(aes(x = long, y = lat), color = "#F61753", size = .85) + 
+  labs(
+    title = "AFRICA", 
+    subtitle = glue::glue("1 continent, {nrow(africa_dots)} points"), 
+    caption = "#30DayMapChallenge - Day 1 : Points · Abdoul ISSA BIDA"
+  ) + 
+  annotate(geom = "text", x = -23.5, y = 11, label = "CAPE VERDE", size = 4, family = "Gotham Narrow") + 
+  annotate(geom = "segment", x = -23.5, y = 12, xend = -23.5, yend = 14.5, size = .125) + 
+  coord_fixed(clip = "off") + 
+  theme_void() + 
+  theme(
+    plot.background = element_rect(fill = "#FFFFFF",color = NA),
+    plot.title = element_text(hjust = .5, size = rel(3),  family = "Gotham Black", margin = margin(t = 25,b = 15)),
+    plot.subtitle = element_text(hjust = .5, color ="grey30", size = rel(2.5), family = "Mercury", face = "bold", margin = margin(b = 35)),
+    plot.caption = element_text(size = rel(1.5), hjust = .5, family = "Gotham Narrow", margin = margin(b = 15))
+  )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("Day1", "day1")
-ggsave(glue::glue("{path}.pdf"), width = 9, height = 9, device = cairo_pdf)
+path <- paste0(path, "_2022")
+ggsave(glue::glue("{path}.pdf"), width = 10.5, height = 10.5, device = cairo_pdf)
 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}.pdf"), 
