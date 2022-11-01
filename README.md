@@ -9,11 +9,12 @@ ___
 
 <a href="Day1"><img src="Day1/day1_2022.png"/></a>
 
-<!--
 ___
 ## Day 2 - Lines
 
-<a href="Day2"><img src="Day2/day2.png"/></a>
+<a href="Day2"><img src="Day2/day2_2022.png"/></a>
+
+<!--
 
 ___
 ## Day 3 - Polygons
