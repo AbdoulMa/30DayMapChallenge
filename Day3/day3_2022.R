@@ -67,9 +67,9 @@ crisis_centers <- tribble(
 crisis_centers |> 
   ggplot(aes(fill = nb_pregnancy_centers)) + 
   geom_rect(xmin = 0, xmax = 1, ymin = 0, ymax = 1, aes(color = abortion_status, linetype = abortion_status),  size = 1) +
-  geom_text(x = .5, y = .5, aes(color = after_scale(prismatic::best_contrast(fill)), label = glue::glue("{state_abbr}\n{nb_pregnancy_centers}")), family = "Gotham Narrow", size = 6.5) + 
+  geom_text(x = .5, y = .5, aes(color = after_scale(prismatic::best_contrast(fill)), label = glue::glue("{state_abbr}\n{nb_pregnancy_centers}")), family = "Gotham Narrow", size = 4.5) + 
   labs(
-    title = "Number of Crisis Pregnancy Centers in Top 10 Search Results", 
+    title = str_to_upper("Number of Crisis Pregnancy Centers in Top 10 Search Results"), 
     caption ="Data from bloomberg, as of August 11th, 2022\n#30DayMapChallenge Day 3 : Polygons \n Abdoul ISSA BIDA inspired by  Davey Alba and Jack Gillu"
   ) +
   coord_equal() +
@@ -88,7 +88,7 @@ crisis_centers |>
       "authorized" = NA,
       "banned" = "black",
       "expected" = "black",
-      "limited" = "grey25"
+      "limited" = "grey55"
     ),
     guide = "none"
   ) + 
@@ -103,26 +103,22 @@ crisis_centers |>
   theme(
     text = element_text(color = "#111111", family = "Gotham Narrow"),
     plot.background = element_rect(fill = "white", color = NA), 
-    plot.margin = margin(c(.5,.5,.5,.5), unit = "cm"),
-    plot.title = element_text(face = "bold", size = rel(2.5), margin = margin(b = 1.75, unit = "cm")), 
-    plot.caption = element_text(hjust = 0, size = rel(1.25), margin = margin(t = .75, unit = "cm")), 
+    plot.margin = margin(c(.35,0,.35,0), unit = "cm"),
+    plot.title = element_text(face = "bold", family = "UEFA Supercup", size = rel(1.35), margin = margin(t = .25, b = 1.75, unit = "cm")), 
+    plot.caption = element_text(hjust = 0, size = rel(.85), margin = margin(t = .75, unit = "cm")), 
     panel.spacing = unit(.01, "cm"),
     strip.text = element_blank()
   )
 
-
 # Saving ------------------------------------------------------------------
 path <- here::here("Day3", "day3_2022")
-ggsave(glue::glue("{path}.pdf"), width = 10.5, height = 9.5, device = cairo_pdf)
+ggsave(glue::glue("{path}.pdf"), width = 9, height = 7, device = cairo_pdf)
+
+# Additional annotations with Illustrator
 
 pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"), 
+  pdf = glue::glue("{path}_polished.pdf"), 
   filenames = glue::glue("{path}.png"),
   dpi = 640
 )
 
-pdftools::pdf_convert(
-  pdf = glue::glue("{path}_polished.pdf"), 
-  filenames = glue::glue("{path}_polished_twitter.png"),
-  dpi = 320
-)
