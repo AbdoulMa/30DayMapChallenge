@@ -15,7 +15,7 @@ ___
 <a href="Day2"><img src="Day2/day2_2022.png"/></a>
 
 ___
-## Day 2 - Polygons
+## Day 3 - Polygons
 
 <a href="Day3"><img src="Day3/day3_2022_polished.png"/></a>
 
