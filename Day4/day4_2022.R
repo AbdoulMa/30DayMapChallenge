@@ -24,7 +24,7 @@ women_index <- women_index |>
   rename_with(~ tolower(str_replace_all(., " ", "_"))) |>
   drop_na()
 
-# Country name cleaning t
+# Country name cleaning to join
 women_index_final <- women_index |>
   mutate(
     wps_index_score = as.numeric(wps_index_score),
@@ -49,8 +49,8 @@ women_index_final <- women_index |>
   )
 
 
+nrow(women_index_final)
 # Graphic -----------------------------------------------------------------
-
 pal <- scales::div_gradient_pal(low = "#971A60", mid = "#FFFFFE", high = "#7EBC42")(seq(0,1, length.out = 7))
 # Function to build specific domain plot
 caracteristic_plot <- function(caracteristic, desc_order = T, subtitle = "") {
@@ -58,11 +58,11 @@ caracteristic_plot <- function(caracteristic, desc_order = T, subtitle = "") {
     mutate(
       desc_order = desc_order,
       rk =  case_when(
-       desc_order ~ rank(desc({{caracteristic}}), ties.method = "first"), 
-       T ~ rank({{caracteristic}}, ties.method = "first")
+        desc_order ~ rank(desc({{caracteristic}}), ties.method = "first"), 
+        T ~ rank({{caracteristic}}, ties.method = "first")
       )
-     ,
-      rk_group = cut_interval(rk, 7) # label = paste0(c("top", "second", "third", "fourth", "bottom"), " quintile")
+      ,
+      rk_group = cut_interval(rk, 7) 
     ) 
   
   caracteristic_df <- select(country_borders, SOVEREIGNT) |>
@@ -121,8 +121,9 @@ final_plot <- main_plot / other_plots +
 path <- here::here("Day4", "day4_2022")
 ggsave(glue::glue("{path}.pdf"), plot = final_plot, width = 14, height = 14, device = cairo_pdf)
 
+# Additional annotations with Illustrator 
 pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"), 
-  filenames = glue::glue("{path}.png"),
-  dpi = 144
+  pdf = glue::glue("{path}_polished.pdf"), 
+  filenames = glue::glue("{path}_twitter.png"),
+  dpi = 216
 )

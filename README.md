@@ -19,18 +19,12 @@ ___
 
 <a href="Day3"><img src="Day3/day3_2022_polished.png"/></a>
 
+___
+## Day 4 - Colour Friday: Green
+
+<a href="Day4"><img src="Day4/day4_2022_polished.png"/></a>
+
 <!--
-
-___
-## Day 3 - Polygons
-
-<a href="Day3"><img src="Day3/day3_polished.png"/></a>
-
-___
-## Day 4 - Hexagons
-
-<a href="Day4"><img src="Day4/day4.png"/></a>
-
 ___
 ## Day 5 - OpenStreetMap
 

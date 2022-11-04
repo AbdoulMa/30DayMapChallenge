@@ -1,4 +1,4 @@
 
-## Day 4 - Hexagons
+## Day 4 - Colour Friday: Green
 
-![](day4.png)
+![](day4_2022_polished.png)
