@@ -4,6 +4,7 @@
 .Ruserdata
 *skeleton*
 Data/*
+challenges_things.R
 !Data/l1_teams_travels.csv
 Day*/*.pdf
 Day*/*twitter.png
