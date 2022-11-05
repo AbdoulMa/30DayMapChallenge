@@ -1,4 +1,4 @@
 
 ## Day 5 - Ukraine
 
-![](day5_polished.png)
+![](day5_2022_polished.png)
