@@ -1,4 +1,4 @@
 
-## Day 5 - OpenStreetMap
+## Day 5 - Ukraine
 
-![](day5.png)
+![](day5_polished.png)
