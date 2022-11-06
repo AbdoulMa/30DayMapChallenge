@@ -2,7 +2,7 @@
 
 Code and plots of the submissions to the [#30DayMapChallenge](https://github.com/tjukanovt/30DayMapChallenge) 
 
-![Themes for the maps. See more below.](https://raw.githubusercontent.com/tjukanovt/30DayMapChallenge/master/images/30dmpc_2021.png)
+![Themes for the maps. See more below.](https://github.com/tjukanovt/30DayMapChallenge/raw/main/images/flyers/30dmc-2022.png)
 
 ___
 ## Day 1 - Points
@@ -28,5 +28,3 @@ ___
 ## Day 5 - Ukraine
 
 <a href="Day5"><img src="Day5/day5_2022_polished.png"/></a>
-<!--
--->

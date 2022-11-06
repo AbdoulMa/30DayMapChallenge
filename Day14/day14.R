@@ -82,7 +82,7 @@ Models estimate that 30.2% of hospitalizations were attributed to obesity."
    geom_polygon(data = obesity_spdf, aes(fill =  bi_class, x = long, y = lat, group = group),
                 color = "#111111") +
    geom_richtext(data=centers, aes(x=x, y=y, label=glue::glue("{label}"),
-                                           color = ifelse(str_detect(bi_class, "1-1|1-2|3-3"), "white", "black")),
+                                   color = ifelse(str_detect(bi_class, "1-1|1-2|3-3"), "white", "black")),
                  size = 5,
                  family = "Gotham Black",
                  fill = NA, label.color = NA, show.legend = F) +
