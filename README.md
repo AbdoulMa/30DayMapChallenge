@@ -28,3 +28,8 @@ ___
 ## Day 5 - Ukraine
 
 <a href="Day5"><img src="Day5/day5_2022_polished.png"/></a>
+
+___
+## Day 6 - Network
+
+<a href="Day6"><img src="Day6/day6.png"/></a>
