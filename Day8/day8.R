@@ -51,7 +51,19 @@ streets <- bbx %>%
   ) %>%
   osmdata_sf()
 
+# Natural spaces
+natural <- opq(bbx) |> 
+  add_osm_feature(key = "natural") |> 
+  osmdata_sf() |> 
+  unname_osmdata_sf()
 
+# Buildings
+buildings <- opq(bbx) |> 
+  add_osm_feature(key = "building") %>%
+  osmdata_sf() |> 
+  unname_osmdata_sf()
+
+# Waters
 water_osm <- opq(bbx) %>%
   add_osm_feature(key = "natural", value = "water") %>%
   osmdata_sf() %>%
@@ -86,11 +98,40 @@ circle <- tibble(lat = center["lat"], long = center["long"]) %>%
 
 streets_lines <- st_intersection(circle, streets$osm_lines)
 highways_lines <- st_intersection(circle, highways$osm_lines)
+# buildings_polygons <- st_intersection(circle, buildings$osm_polygons)
+# natural_points <- st_intersection(circle, natural$osm_points)
+# natural_lines <- st_intersection(circle, natural$osm_lines)
+# natural_polygons <- st_intersection(circle, natural$osm_polygons)
 water_lines <- st_intersection(circle, water)
 
 # Graphic -----------------------------------------------------------------
-# Plot
 ggplot() +
+  # geom_sf(
+  #   data = natural_points, 
+  #   col = "#267300", 
+  #   size = .125, 
+  #   alpha = .65
+  # ) + 
+  # geom_sf(
+  #   data = natural_lines,
+  #   col = "#267300",
+  #   size = .125,
+  #   alpha = .65
+  # ) +
+  # geom_sf(
+  #   data = natural_polygons,
+  #   fill = "#267300",
+  #   col = "#267300",
+  #   size = .125,
+  #   alpha = .35
+  # ) +
+  # geom_sf(
+  #   data = buildings_polygons,
+  #   size = .1,
+  #   fill =  "#828282",
+  #   color = "#828282",
+  #   alpha = .125
+  # ) +
   geom_sf(
     data = water_lines,
     fill = "steelblue",
@@ -99,7 +140,7 @@ ggplot() +
   ) +
   geom_sf(
     data = streets_lines,
-    col = "grey40",
+    col = "#4e4e4e",
     size = .4,
     alpha = .65
   ) +
@@ -110,19 +151,13 @@ ggplot() +
     alpha = .8
   ) +
   geom_sf(data = circle, color = "black", fill = NA) +
-  labs(caption = "<span style='font-size:85px;'>Dijon</span><br><br><span style='font-size:35px;'>47° 19' 19.369\" N - 5° 2' 29.328\" E</span><br><br>
+  labs(caption = "<span style='font-size: 30px;'>FRANCE</span><br><span style='font-size:85px;'>DIJON</span><br><br><span style='font-size:35px;'>47° 19' 19.369\" N - 5° 2' 29.328\" E</span><br><br>
        <span style='font-size:20px;'>#30DayMapChallenge Day 5 : OpenStreetMap ⋅ Abdoul ISSA BIDA</span>") + 
   theme_void() + 
-  theme(plot.caption = element_markdown(hjust = .5, family = "Operator SSm Book", face = "bold"),
+  theme(plot.caption = element_markdown(hjust = .5, family = "Postoni Standard", face = "bold"),
         plot.background = element_rect(fill = "#F3F6F7", color = NA),
         plot.margin = margin(b = 25)) 
 
 # Saving ------------------------------------------------------------------
-path <- here::here("Day5", "day5")
-ggsave(glue::glue("{path}.pdf"), width = 7.5, height =7.5, device = cairo_pdf)
-
-pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"), 
-  filenames = glue::glue("{path}.png"),
-  dpi = 640
-)
+path <- here::here("Day8", "day8")
+ggsave(glue::glue("{path}.png"), width = 8.5, height = 8.5, device = ragg::agg_png, dpi = 300)
