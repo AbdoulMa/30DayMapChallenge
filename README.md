@@ -33,3 +33,8 @@ ___
 ## Day 6 - Network
 
 <a href="Day6"><img src="Day6/day6.png"/></a>
+
+___
+## Day 7 - Raster
+
+<a href="Day7"><img src="Day7/day7.png"/></a>
