@@ -38,3 +38,8 @@ ___
 ## Day 7 - Raster
 
 <a href="Day7"><img src="Day7/day7.png"/></a>
+
+___
+## Day 7 - OpenStreetMap
+
+<a href="Day7"><img src="Day8/day8_2022.png"/></a>

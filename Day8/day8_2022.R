@@ -66,6 +66,7 @@ center_proj <-
   tibble(long, lat) %>%
   st_as_sf(coords = c("long", "lat"), crs = 4326)
 
+# circle to crop in ----
 dist <-  3500
 circle <- tibble(long, lat) %>%
   st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
@@ -118,5 +119,5 @@ ggplot() +
 
 # Saving ------------------------------------------------------------------
 path <- here::here("Day8", "day8_2022")
-ggsave(glue::glue("{path}.png"), width =9, height = 9, device = ragg::agg_png, dpi = 300)
+ggsave(glue::glue("{path}_twitter.png"), width =9, height = 9, device = ragg::agg_png, dpi = 216)
 
