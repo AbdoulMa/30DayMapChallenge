@@ -52,4 +52,4 @@ ___
 ___
 ## Day 10 - Bad Map
 
-<a href="Day10"><img src="Day9/day10.png"/></a>
+<a href="Day10"><img src="Day10/day10.png"/></a>
