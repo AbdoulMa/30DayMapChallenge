@@ -57,14 +57,14 @@ regions %>%
   theme_void() +
   theme(
     text = element_text(family = "S One"),
-    plot.title = element_text(face = "bold", size = rel(2)),
+    plot.title = element_text(face = "bold", size = rel(2.5)),
     plot.subtitle = element_text(color = "#666666", face = "bold", size = rel(1.5)),
     plot.caption = ggtext::element_markdown(size = rel(1.25)),
     plot.background = element_rect(fill = "white", color = NA),
-    plot.margin = margin(c(.25, .25, .25, .25), unit = "cm")
+    plot.margin = margin(c(.5, .5, .5, .55), unit = "cm")
   )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("Day10", "day10")
-ggsave(glue::glue("{path}.png"), width = 9, height = 9, device = ragg::agg_png, dpi = 300)
+ggsave(glue::glue("{path}.png"), width = 10, height = 10, device = ragg::agg_png, dpi = 300)
 
