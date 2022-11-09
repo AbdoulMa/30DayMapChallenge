@@ -5,10 +5,12 @@ library(sf)
 library(patchwork)
 
 # Data Reading and Wrangling ----------------------------------------------
+# Scrape data
 timeline_df <- rvest::read_html("https://en.wikipedia.org/wiki/Timeline_of_space_travel_by_nationality") |> 
   rvest::html_element(".wikitable") |> 
   rvest::html_table()
 
+# Clean data
 expeditions_df <- timeline_df |>  
   janitor::clean_names() |> 
   filter(!str_detect(no, "\\d{4}s")) |> 
@@ -17,7 +19,7 @@ expeditions_df <- timeline_df |>
          decade = (lubridate::year(date) %/% 10) * 10, 
          decade = as.factor(decade))
 
-# "Soviet Union"   "United States"  "Czechoslovakia" "East Germany"   "West Germany" 
+# Clean countries names to join
 expeditions_df <- expeditions_df |> 
   mutate(
     country = case_when(
@@ -30,17 +32,14 @@ expeditions_df <- expeditions_df |>
   ) |> 
   distinct(country, .keep_all =  T)
 
-glimpse(country_borders)
 world_countries <- select(country_borders, ADMIN, ISO_A3)  |> 
   st_transform(crs = "ESRI:54030")
 
 expeditions_sf <- world_countries |> 
   right_join(expeditions_df, by = c( "ADMIN" = "country"))
 
-
-
 # Graphic -----------------------------------------------------------------
-colors_pal <- c("#EC3428","#F27521","#B88C34", "#0C7D52", "#29545F", "#4C5873", "#8D8C92")
+
 colors_pal <- c("#DB2C2C", "#D07D00", "#A1A100", "#009500", "#00B0B0", "#2061A0", "#834198")
 countries_plot <- ggplot() + 
   geom_sf(data = world_countries, size = 0) +
@@ -115,6 +114,7 @@ travelers_plot <- ggplot()  +
     strip.text = element_blank()
   )
 
+# Combine plots
 countries_plot / travelers_plot  + 
   plot_annotation(
     caption = "Data from **Wikipedia** <br> #30DayMapChallenge Day 9 : **Space** · Abdoul ISSA BIDA."
