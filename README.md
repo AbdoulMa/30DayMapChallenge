@@ -40,6 +40,11 @@ ___
 <a href="Day7"><img src="Day7/day7.png"/></a>
 
 ___
-## Day 7 - OpenStreetMap
+## Day 8 - OpenStreetMap
 
-<a href="Day7"><img src="Day8/day8_2022.png"/></a>
+<a href="Day8"><img src="Day8/day8_2022.png"/></a>
+
+___
+## Day 9 - Space
+
+<a href="Day9"><img src="Day9/day9_polished.png"/></a>
