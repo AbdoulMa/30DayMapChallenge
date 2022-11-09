@@ -48,3 +48,8 @@ ___
 ## Day 9 - Space
 
 <a href="Day9"><img src="Day9/day9_polished.png"/></a>
+
+___
+## Day 10 - Bad Map
+
+<a href="Day10"><img src="Day9/day10.png"/></a>
