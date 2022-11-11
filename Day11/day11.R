@@ -46,8 +46,8 @@ final_coaches_df <- final_coaches_df |>
 # Graphic -----------------------------------------------------------------
 final_coaches_df |> 
   ggplot() + 
-  geom_sf(data = us_states, fill = NA, color = "white",  size = .025) + 
-  geom_sf(fill = "#DC0437", color = "white",  size = .025) + 
+  geom_sf(data = us_states, fill = NA, color = "white",  size = .075) + 
+  geom_sf(fill = "#DC0437", color = "white",  size = .075) + 
   ggrepel::geom_text_repel(aes(x = long, y = lat, label = state_abbr),
                            direction = "x",
                            color = "white", 
@@ -84,6 +84,6 @@ ggsave(glue::glue("{path}.png"), width = 11, height = 9.75, device = ragg::agg_p
 # Additional annotations with illustrator 
 pdftools::pdf_convert(
   pdf = glue::glue("{path}_polished.pdf"), 
-  filenames = glue::glue("{path}_polished_twitter.png"),
-  dpi = 216
+  filenames = glue::glue("{path}_polished.png"),
+  dpi = 300
 )
