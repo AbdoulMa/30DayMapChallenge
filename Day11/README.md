@@ -1,4 +1,4 @@
 
 ## Day 11 - Red
 
-![](day11.png)
+![](day11_polished.png)

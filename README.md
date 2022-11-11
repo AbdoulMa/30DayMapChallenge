@@ -53,3 +53,8 @@ ___
 ## Day 10 - Bad Map
 
 <a href="Day10"><img src="Day10/day10.png"/></a>
+
+___
+## Day 11 - Red
+
+<a href="Day11"><img src="Day11/day11_polished.png"/></a>
