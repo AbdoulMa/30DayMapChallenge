@@ -58,3 +58,8 @@ ___
 ## Day 11 - Red
 
 <a href="Day11"><img src="Day11/day11_polished.png"/></a>
+
+___
+## Day 12 - Scale
+
+<a href="Day12"><img src="Day12/day12.png"/></a>
