@@ -5,47 +5,26 @@ library(sf)
 library(ggtext)
 
 # Data Reading and Wrangling ----------------------------------------------
-# https://data.worldbank.org/indicator/SH.STA.DIAB.ZS?view=map
-# https://ourworldindata.org/co2-emissions
-countries_mapping <- read_csv("https://gist.githubusercontent.com/fogonwater/bc2b98baeb2aa16b5e6fbc1cf3d7d545/raw/6fd2951260d8f171181a45d2f09ee8b2c7767330/countries.csv") |> 
-  select(country_code3, continent_name)
 
-global_emissions <- read_csv("/home/abdoul-ma/Téléchargements/annual-co2-emissions-per-country.csv") |> 
+# https://ourworldindata.org/co2-emissions # You can download here
+global_emissions <- read_csv(global_emission_path) |> 
   filter(Year == 2021) |> 
   janitor::clean_names() |> 
   drop_na(code)
 
-diabetics_rates <- read_csv("/home/abdoul-ma/Téléchargements/API_SH.STA.DIAB.ZS_DS2_en_csv_v2_4499580/API_SH.STA.DIAB.ZS_DS2_en_csv_v2_4499580.csv", skip = 3) |> 
-  select(1:4, `2021`) |> 
-  janitor::clean_names() |> 
-  select(starts_with("country"), pct = x2021)
-glimpse(diabetics_rates)
-
-no <- setdiff(diabetics_rates$country_code, world_grid$code_alpha3)
-
+# Countries positions
 world_grid <- geofacet::world_countries_grid1
 
-final_diabetics_rates <- diabetics_rates |> 
-  inner_join(world_grid, by = c("country_code" = "code_alpha3")) |> 
-  inner_join(countries_mapping, by = c("country_code" = "country_code3"))
+# Countries names with codes mapping
+countries_mapping <- read_csv("https://gist.githubusercontent.com/fogonwater/bc2b98baeb2aa16b5e6fbc1cf3d7d545/raw/6fd2951260d8f171181a45d2f09ee8b2c7767330/countries.csv") |> 
+  select(country_code3, continent_name)
 
-final_diabetics_rates |> 
-  ggplot() + 
-  geom_point(aes(col, row, size = pct, color = continent_name), alpha = .45) + 
-  geom_text(aes(col, row, label = country_code), size = 2.5) + 
-  scale_y_reverse() + 
-  scale_size_continuous(
-    range = c(5, 15)
-  ) + 
-  coord_equal(clip = "off", expand = F) + 
-  theme_minimal() 
-
+# Data joining
 final_global_emissions <- global_emissions |> 
   inner_join(world_grid, by = c("code" = "code_alpha3")) |> 
   inner_join(countries_mapping, by = c("code" = "country_code3"))
 
 # Graphic -----------------------------------------------------------------
-unique(final_global_emissions$continent_name)
 final_global_emissions |> 
   ggplot() + 
   geom_point(aes(col, row, size = annual_co2_emissions, color = continent_name), alpha = .65) + 
