@@ -65,6 +65,11 @@ ___
 <a href="Day12"><img src="Day12/day12.png"/></a>
 
 ___
-## Day 12 - 5 minute map
+## Day 13 - 5 minute map
 
 <a href="Day13"><img src="Day13/day13.png"/></a>
+
+___
+## Day 14 - Hexagons
+
+<a href="Day14"><img src="Day14/day14.png"/></a>
