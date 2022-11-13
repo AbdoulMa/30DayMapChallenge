@@ -63,3 +63,8 @@ ___
 ## Day 12 - Scale
 
 <a href="Day12"><img src="Day12/day12.png"/></a>
+
+___
+## Day 12 - 5 minute map
+
+<a href="Day12"><img src="Day12/day12.png"/></a>
