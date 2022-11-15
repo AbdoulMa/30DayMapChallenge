@@ -40,14 +40,14 @@ fast_foods_by_location <- fast_food_restaurants |>
   st_set_crs(4326) |> 
   st_transform(crs = "ESRI:102003")
 
-# Graphic -----------------------------------------------------------------
 us_map <- albersusa::usa_sf()  |> 
   filter(!iso_3166_2 %in% c("AK","HI")) |> 
   st_transform("ESRI:102003")
-st_crs(us_map)
 
+# Crop in the map
 fast_foods_by_location <- st_intersection(us_map, fast_foods_by_location)
 
+# Graphic -----------------------------------------------------------------s
 ggplot() + 
   geom_sf(data = us_map, fill = "#E6E7E8", color= "#FFFFFF", size = .25) + 
   geom_sf(data = fast_foods_by_location, aes(color = restaurant_type)) + 
