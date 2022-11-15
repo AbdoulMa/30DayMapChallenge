@@ -49,11 +49,11 @@ st_crs(us_map)
 fast_foods_by_location <- st_intersection(us_map, fast_foods_by_location)
 
 ggplot() + 
-  geom_sf(data = us_map, fill = "#E6E7E8", color= "#FFFFFF", size = .175) + 
+  geom_sf(data = us_map, fill = "#E6E7E8", color= "#FFFFFF", size = .25) + 
   geom_sf(data = fast_foods_by_location, aes(color = restaurant_type)) + 
   labs(
     title = str_to_upper("nearest fast food restaurant"),
-    caption = "Data from fastfoodmaps.com\n#30DayMapChallenge - Day 15 : Food\nAbdoul ISSA BIDA inspired by Nathan YAU."
+    caption = "Data from fastfoodmaps.com\n#30DayMapChallenge - Day 15 : Food/Drink\nAbdoul ISSA BIDA inspired by Nathan YAU."
   ) +
   scale_color_manual(
     values =c(
