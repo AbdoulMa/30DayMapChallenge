@@ -73,8 +73,15 @@ ___
 ## Day 14 - Hexagons
 
 <a href="Day14"><img src="Day14/day14.png"/></a>
+
 ___
 
 ## Day 15 - Food/Drink
 
 <a href="Day15"><img src="Day15/day15.png"/></a>
+
+___
+
+## Day 15 - Minimal
+
+<a href="Day16"><img src="Day16/day16.png"/></a>
