@@ -82,6 +82,12 @@ ___
 
 ___
 
-## Day 15 - Minimal
+## Day 16 - Minimal
 
 <a href="Day16"><img src="Day16/day16.png"/></a>
+
+___
+
+## Day 17 - Map without a computer
+
+<a href="Day17"><img src="Day17/day17.png"/></a>
