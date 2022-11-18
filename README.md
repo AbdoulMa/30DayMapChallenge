@@ -91,3 +91,9 @@ ___
 ## Day 17 - Map without a computer
 
 <a href="Day17"><img src="Day17/day17.png"/></a>
+
+___
+
+## Day 18 - Blue
+
+<a href="Day18"><img src="Day18/day18.png"/></a>
