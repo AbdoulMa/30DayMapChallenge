@@ -96,4 +96,4 @@ ___
 
 ## Day 18 - Blue
 
-<a href="Day18"><img src="Day18/day18.png"/></a>
+<a href="Day18"><img src="Day18/day18_polished.png"/></a>

@@ -1,4 +1,4 @@
 
 ## Day 18 - Blue
 
-![](day18.png)
+![](day18_polished.png)
