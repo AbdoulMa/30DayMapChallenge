@@ -97,3 +97,9 @@ ___
 ## Day 18 - Blue
 
 <a href="Day18"><img src="Day18/day18_polished.png"/></a>
+
+___
+
+## Day 19 - Globe
+
+<a href="Day19"><img src="Day19/day19_polished.png"/></a>
