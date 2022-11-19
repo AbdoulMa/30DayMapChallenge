@@ -80,6 +80,3 @@ pdftools::pdf_convert(
   filenames = glue::glue("{path}_polished.png"),
   dpi = 300
 )
-magick::image_read(glue::glue("{path}_polished.png")) |> 
-magick::image_scale( "1200") |> # proportionnally to width
-  magick::image_write(glue::glue("{path}_polished.png"))
