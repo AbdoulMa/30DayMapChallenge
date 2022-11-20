@@ -116,7 +116,7 @@ teams_colors <- tibble(
 )
 
 teams_selection_df <- final_teams_df |> 
-  select(id, displayName, abbreviation,logo_link, long, lat) |> 
+  select(id, displayName, abbreviation,logo_link, longitude, latitude) |> 
   mutate(
     displayName = case_when(
       displayName == "LA Clippers" ~ "Los Angeles Clippers", 
@@ -130,7 +130,7 @@ teams_selection_df <- teams_selection_df |>
 
 
 opponent_selection_df <- final_teams_df |> 
-  select(abbreviation, long, lat)
+  select(abbreviation, longitude, latitude)
 # Process for one team 
 teams_moves <- teams_travels_df |> 
   # filter(team_id == 2) |> 
@@ -152,57 +152,57 @@ teams_moves <- teams_moves |>
     long = st_coordinates(geometry)[,1],
     lat = st_coordinates(geometry)[,2]
   )
+ 
+teams_moves <- teams_moves |> 
+  group_by(team_id) |> 
+  mutate(
+    next_long = lead(long),
+    next_lat = lead(lat)
+  ) 
 
-teams_moves$next_long = lead(teams_moves$long)
-teams_moves$next_lat = lead(teams_moves$lat)
+# teams_moves$next_long = lead(teams_moves$long)
+# teams_moves$next_lat = lead(teams_moves$lat)
 
-sf::sf_use_s2(F)
-teams_moves |> 
-  filter(team_id == 1) |> 
-  # mutate(
-  #   distance_to_next = sf::st_distance(
-  #     geometry, 
-  #     lead(geometry, default = NA),
-  #     by_element = T
-  #   )
-  # ) |> 
-  # view()
+# sf::sf_use_s2(F)
+final_teams_moves <- teams_moves |> 
+  filter(team_id %in% 1:2) |> 
+  group_by(team_id) |> 
   mutate(
     next_long = ifelse(is.na(next_long), long, next_long),
     next_lat = ifelse(is.na(next_lat), long, next_lat)
   ) |> 
   mutate(
-    l = list(st_point(x = c(long,lat))),
-    l_sf = st_sfc(l, crs = albersusa::us_laea_proj),
-    l_next = list(st_point(x = c(next_long,next_lat))),
-    l_next_sf = st_sfc(l_next,crs = albersusa::us_laea_proj)
+    location = map2(long, lat, ~st_point(x = c(.x,.y))),
+    location_sf = st_sfc(location, crs = albersusa::us_laea_proj),
+    next_location = map2(next_long, next_lat, ~st_point(x = c(.x,.y))),
+    next_location_sf = st_sfc(next_location,crs = albersusa::us_laea_proj)
   ) |> 
   rowwise() |> 
   mutate(
-    distance = st_distance(l_sf, l_next_sf)
-  ) |> 
-  view()
-  mutate(location = map2(long, lat, ~st_point(x = c(.x, .y))) ,# %>% st_set_crs(32718), 
-         next_location = map2(next_long, next_lat, ~st_point(x = c(.x, .y))),# %>% st_as_sfc() ,#%>% st_set_crs(32718),
-         location = st_as_sfc(location),
-         # location =st_set_crs(location, albersusa::us_laea_proj),
-         # next_location = st_as_sfc(location),
-         # next_location = st_set_crs(location, albersusa::us_laea_proj),
-  ) |> 
-  mutate(distance = st_distance(location,next_location))
-  #   next_lat = lag(lat)
-  #   ) |> 
-  # view()
+    distance = st_distance(location_sf, next_location_sf),
+    distance = str_remove(distance, "\\[m\\]"), 
+    distance = parse_number(distance), 
+    distance_km = distance / 1000, 
+    
+  ) |>
+  group_by(team_id) |> 
+  mutate(
+    sum_distance = sum(distance_km),
+    sum_distance_miles = 0.621371 * sum_distance,
+    nb_hours = sum_distance_miles / 517.5, # Average flight speed 
+    team_summary = glue::glue("<img src='{logo_link}' width='20'/><br> <span style='font-family: \"Gotham Black\";'><span style='font-size: 13px;line-height: 14px;'>{displayName}</span> <br> <span style='font-size: 10px;line-height: 14px;'>{scales::comma(round(sum_distance_miles, 2))}  Miles</span><br> <span style='font-size: 10px; color: grey; line-height: 12px;'>{scales::comma(round(nb_hours , 0))}  H</span></span>")
+  ) 
 
 ggplot() + 
   geom_sf(data = us_states, fill = NA, color = "grey35",  size = .1)  + 
-  geom_path(data = teams_moves, aes(x = long, y = lat, color = I(primary_color), group = team_id), size = 1, alpha = .85) +
-  geom_point(data = teams_moves, aes(long, lat, color = I(primary_color), fill = I(secondary_color)), shape = 21,  size = 1.5) + 
-  facet_wrap(vars(displayName), ncol = 6) + 
+  geom_path(data = final_teams_moves, aes(x = long, y = lat, color = I(primary_color), group = team_id), size = 1, alpha = .85) +
+  geom_point(data = final_teams_moves, aes(long, lat, color = I(primary_color), fill = I(secondary_color)), shape = 21,  size = 1.5) + 
+  facet_wrap(vars(team_summary), ncol = 6) + 
   theme_minimal() + 
   theme(
     panel.grid = element_blank(),
     axis.text = element_blank(),
+    strip.text = element_markdown(),
     plot.background = element_rect(fill = "white", color = NA)
   )
 
