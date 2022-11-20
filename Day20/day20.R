@@ -44,8 +44,16 @@ teams_locations_df <- tibble::tribble(
   "Washington Wizards", "Capital One Arena", 38.898129, -77.021172
 )
 
-teams <- rjson::fromJSON(file = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams") 
+#  Teams Colors ----
+teams_colors <- tibble(
+  team = names(teamcolors::league_pal("nba")), 
+  primary_color = teamcolors::league_pal("nba"),
+  secondary_color = teamcolors::league_pal("nba", 2)
+)
 
+
+# Scrape teams data ----
+teams <- rjson::fromJSON(file = "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams") 
 teams_df <- pluck(teams, "sports", 1, "leagues", 1, "teams") |> 
   enframe() |> 
   select(value) |> 
@@ -56,6 +64,7 @@ teams_df <- pluck(teams, "sports", 1, "leagues", 1, "teams") |>
         logo_link = "href") |> 
   select(-where(is.list), -value_id) 
 
+# Join with teams locations data
 final_teams_df <- teams_df |> 
   left_join(teams_locations_df, by = c("displayName" = "team")) 
 
@@ -85,7 +94,6 @@ team_travels <- function(team_id, team_short_name, team_abbr, team_slug) {
     )
   }
   
-  # 
   schedule_rows <- read_html(glue::glue('https://www.espn.com/nba/team/schedule/_/name/{team_abbr}/{team_slug}')) |> 
     html_element("table.Table") |> 
     html_elements("tbody tr") 
@@ -104,16 +112,12 @@ team_travels <- function(team_id, team_short_name, team_abbr, team_slug) {
     select(-year)
 }
 
+# Retrieve teams travels ----
 teams_travels_df <- teams_df |> 
   select(id, shortDisplayName, abbreviation, slug) |> 
   pmap_dfr(~team_travels(..1,..2,..3,..4)) |> 
   tidyr::extract(col = opponent_link, regex = ".*/(.*)/(.*)$", into = c("opp_abbreviation", "opp_slug"))
 
-teams_colors <- tibble(
-  team = names(teamcolors::league_pal("nba")), 
-  primary_color = teamcolors::league_pal("nba"),
-  secondary_color = teamcolors::league_pal("nba", 2)
-)
 
 teams_selection_df <- final_teams_df |> 
   select(id, displayName, abbreviation,logo_link, longitude, latitude) |> 
@@ -124,20 +128,20 @@ teams_selection_df <- final_teams_df |>
     )
   ) 
 
+# Add teams colors data ----
 teams_selection_df <- teams_selection_df |> 
   left_join(teams_colors, by = c("displayName" = "team")) |> 
   replace_na(list(secondary_color = "#FFFFFF"))
 
-
 opponent_selection_df <- final_teams_df |> 
   select(abbreviation, longitude, latitude)
-# Process for one team 
+
 teams_moves <- teams_travels_df |> 
-  # filter(team_id == 2) |> 
   mutate(opp_abbreviation = str_to_upper(opp_abbreviation)) |> 
   left_join(teams_selection_df, by = c("team_id" = "id")) |> 
   left_join(opponent_selection_df, by = c("opp_abbreviation" = "abbreviation"), suffix = c("_main", "_opp"))
 
+# Detect if team plays at home / away ----
 teams_moves <- teams_moves |> 
   rowwise() |> 
   mutate(
@@ -145,6 +149,7 @@ teams_moves <- teams_moves |>
     latitude = ifelse(h_a == "@", latitude_opp, latitude_main)
   ) 
 
+# Trasnform to a better projection for USA ----
 teams_moves <- teams_moves |> 
   st_as_sf(coords = c("longitude", "latitude"), crs = 4326) |> 
   st_transform(albersusa::us_laea_proj) |> 
@@ -153,6 +158,7 @@ teams_moves <- teams_moves |>
     lat = st_coordinates(geometry)[,2]
   )
  
+# For each team, define its next game location ----
 teams_moves <- teams_moves |> 
   group_by(team_id) |> 
   mutate(
@@ -160,12 +166,8 @@ teams_moves <- teams_moves |>
     next_lat = lead(lat)
   ) 
 
-# teams_moves$next_long = lead(teams_moves$long)
-# teams_moves$next_lat = lead(teams_moves$lat)
-
-# sf::sf_use_s2(F)
+# Compute moves distances and an approximate time ----
 final_teams_moves <- teams_moves |> 
-  filter(team_id %in% 1:2) |> 
   group_by(team_id) |> 
   mutate(
     next_long = ifelse(is.na(next_long), long, next_long),
@@ -188,35 +190,50 @@ final_teams_moves <- teams_moves |>
   group_by(team_id) |> 
   mutate(
     sum_distance = sum(distance_km),
-    sum_distance_miles = 0.621371 * sum_distance,
+    sum_distance_miles = 0.621371 * sum_distance, # Convert in miles
     nb_hours = sum_distance_miles / 517.5, # Average flight speed 
-    team_summary = glue::glue("<img src='{logo_link}' width='20'/><br> <span style='font-family: \"Gotham Black\";'><span style='font-size: 13px;line-height: 14px;'>{displayName}</span> <br> <span style='font-size: 10px;line-height: 14px;'>{scales::comma(round(sum_distance_miles, 2))}  Miles</span><br> <span style='font-size: 10px; color: grey; line-height: 12px;'>{scales::comma(round(nb_hours , 0))}  H</span></span>")
+    # Team summary 
+    team_summary = glue::glue("<img src='{logo_link}' width='30'/><br> <span ><span style='font-size: 18px;line-height: 20px;'>{displayName}</span> <br> <span style='font-size: 15.5px;line-height: 17px;'>{scales::comma(round(sum_distance_miles, 2))}  Miles</span><br> <span style='font-size: 15px; color: #555555; line-height: 16px;'>{scales::comma(round(nb_hours , 0))}  H</span></span>")
   ) 
 
-ggplot() + 
-  geom_sf(data = us_states, fill = NA, color = "grey35",  size = .1)  + 
-  geom_path(data = final_teams_moves, aes(x = long, y = lat, color = I(primary_color), group = team_id), size = 1, alpha = .85) +
-  geom_point(data = final_teams_moves, aes(long, lat, color = I(primary_color), fill = I(secondary_color)), shape = 21,  size = 1.5) + 
-  facet_wrap(vars(team_summary), ncol = 6) + 
-  theme_minimal() + 
-  theme(
-    panel.grid = element_blank(),
-    axis.text = element_blank(),
-    strip.text = element_markdown(),
-    plot.background = element_rect(fill = "white", color = NA)
+travels_summary <- final_teams_moves |> 
+  ungroup() |> 
+  distinct(team_id, sum_distance_miles, nb_hours) |> 
+  summarise(
+    mean_distance_miles = mean(sum_distance_miles),
+    mean_nb_hours = mean(nb_hours)
   )
 
+mean_distance <-  travels_summary$mean_distance_miles 
+mean_nb_hours <-  travels_summary$mean_nb_hours
 
 # Graphic -----------------------------------------------------------------
-
-
+(plot <- ggplot() + 
+  geom_sf(data = us_states, fill = "#D9D9D9", color = "grey35",  size = .1)  + 
+  geom_path(data = final_teams_moves, aes(x = long, y = lat, color = I(primary_color), group = team_id), size = .85, alpha = .85) +
+  geom_point(data = final_teams_moves, aes(long, lat, color = I(primary_color), fill = I(secondary_color)), shape = 21,  size = 1.75) + 
+  labs(
+    title = str_to_upper("NBA franchise trips"), 
+    subtitle = glue::glue("A NBA player spends on average about {round(mean_distance)} miles for {round(mean_nb_hours)} H traveling over a season"), 
+    caption = "Data from **espn.com**<br>**#30DayMapChallenge**<br>Day 20 : My favorite · Abdoul ISSA BIDA."
+  ) +
+  ggh4x::facet_wrap2(vars(team_summary), ncol = 6, strip = ggh4x::strip_vanilla(clip = "off")) + 
+  theme_minimal() + 
+  theme(
+    text = element_text(family =  "UEFA Supercup"),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    plot.title = element_text(face = "bold", hjust = 0, size = rel(3.5)),
+    plot.subtitle = element_text(color = "#555555", face = "bold", hjust = 0, size = rel(1.75)),
+    plot.caption = ggtext::element_markdown(size = rel(1.5)),
+    strip.text = element_markdown(family = "UEFA Supercup", face = "bold"),
+    panel.spacing.x = unit(1, "cm"),
+    panel.grid = element_blank(),
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.margin = margin(c(.5,.5,.5,.5), unit = "cm")
+  )
+)
 
 # Saving ------------------------------------------------------------------
 path <- here::here("Day20", "day20")
-ggsave(glue::glue("{path}.pdf"), width = 9, height = 9, device = cairo_pdf)
-
-pdftools::pdf_convert(
-  pdf = glue::glue("{path}.pdf"), 
-  filenames = glue::glue("{path}.png"),
-  dpi = 640
-)
+ggsave(glue::glue("{path}.png"), width = 13.5, height = 13.5, device = ragg::agg_png, dpi = 300)
