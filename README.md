@@ -103,3 +103,9 @@ ___
 ## Day 19 - Globe
 
 <a href="Day19"><img src="Day19/day19_polished.png"/></a>
+
+___
+
+## Day 20 - My favourite
+
+<a href="Day20"><img src="Day20/day20.png"/></a>
