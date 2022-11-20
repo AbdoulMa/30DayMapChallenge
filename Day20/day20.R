@@ -214,7 +214,7 @@ mean_nb_hours <-  travels_summary$mean_nb_hours
   geom_point(data = final_teams_moves, aes(long, lat, color = I(primary_color), fill = I(secondary_color)), shape = 21,  size = 1.75) + 
   labs(
     title = str_to_upper("NBA franchise trips"), 
-    subtitle = glue::glue("A NBA player spends on average about {round(mean_distance)} miles for {round(mean_nb_hours)} H traveling over a season"), 
+    subtitle = glue::glue("A NBA player spends on average about {scales::comma(round(mean_distance))} miles for {round(mean_nb_hours)} H traveling over a season"), 
     caption = "Data from **espn.com**<br>**#30DayMapChallenge**<br>Day 20 : My favorite · Abdoul ISSA BIDA."
   ) +
   ggh4x::facet_wrap2(vars(team_summary), ncol = 6, strip = ggh4x::strip_vanilla(clip = "off")) + 
@@ -230,10 +230,10 @@ mean_nb_hours <-  travels_summary$mean_nb_hours
     panel.spacing.x = unit(1, "cm"),
     panel.grid = element_blank(),
     plot.background = element_rect(fill = "white", color = NA),
-    plot.margin = margin(c(.5,.5,.5,.5), unit = "cm")
+    plot.margin = margin(c(1,.75,1,.75), unit = "cm")
   )
 )
 
 # Saving ------------------------------------------------------------------
 path <- here::here("Day20", "day20")
-ggsave(glue::glue("{path}.png"), width = 13.5, height = 13.5, device = ragg::agg_png, dpi = 300)
+ggsave(glue::glue("{path}.png"), width = 13.5, height = 13.5, device = ragg::agg_png, dpi = 640)
