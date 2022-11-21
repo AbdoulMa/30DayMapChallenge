@@ -109,3 +109,9 @@ ___
 ## Day 20 - My favourite
 
 <a href="Day20"><img src="Day20/day20.png"/></a>
+
+___
+
+## Day 21 - Population
+
+<a href="Day21"><img src="Day21/day21_polished.png"/></a>
