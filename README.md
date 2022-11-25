@@ -115,3 +115,9 @@ ___
 ## Day 21 - Population
 
 <a href="Day21"><img src="Day21/day21_polished.png"/></a>
+
+___
+
+## Day 21 - 2 colours map
+
+<a href="Day25"><img src="Day25/day25.png"/></a>
