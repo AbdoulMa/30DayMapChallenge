@@ -118,6 +118,6 @@ ___
 
 ___
 
-## Day 21 - 2 colours map
+## Day 25 - 2 colours map
 
 <a href="Day25"><img src="Day25/day25.png"/></a>
