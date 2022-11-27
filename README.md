@@ -116,13 +116,14 @@ ___
 
 <a href="Day21"><img src="Day21/day21_polished.png"/></a>
 
-___
-
-## Day 25 - Music
-
-<a href="Day27"><img src="Day27/day27.png"/></a>
-___
 
 ## Day 25 - 2 colours map
 
 <a href="Day25"><img src="Day25/day25.png"/></a>
+
+___
+
+## Day 27 - Music
+
+<a href="Day27"><img src="Day27/day27.png"/></a>
+___
