@@ -127,8 +127,14 @@ ___
 
 <a href="Day27"><img src="Day27/day27.png"/></a>
 
-
-## Day 28 - 3D
 ___
 
+## Day 28 - 3D
+
 <a href="Day28"><img src="Day28/day28.png"/></a>
+
+___
+
+## Day 30 - Remix
+
+<a href="Day30"><img src="Day30/day30.png"/></a>
