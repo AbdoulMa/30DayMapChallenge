@@ -19,8 +19,8 @@ select(matches("(plant|county)_")) |>
   ggplot() + 
   geom_sf(data = us_states, size = .25) + 
   geom_segment(aes(x = county_long, y = county_lat, xend = plant_long, yend = plant_lat), size = .25) + 
-  geom_point(aes(plant_long, plant_lat), size = 4.5, color = "black") + 
-  geom_point(aes(plant_long, plant_lat), size = 2.5, color = "#FFD700")+ 
+  geom_point(aes(plant_long, plant_lat), size = 3.5, color = "black") + 
+  geom_point(aes(plant_long, plant_lat), size = 2, color = "#FFD700")+ 
   labs(
     title = 'Which <span style="color: #FFD700;">nuclear plant</span> is closest to Americans?', 
     subtitle = "Each segment connects a city to its nearest nuclear power plant",
