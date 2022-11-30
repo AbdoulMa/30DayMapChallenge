@@ -22,7 +22,7 @@ select(matches("(plant|county)_")) |>
   geom_point(aes(plant_long, plant_lat), size = 3.5, color = "black") + 
   geom_point(aes(plant_long, plant_lat), size = 2, color = "#FFD700")+ 
   labs(
-    title = 'Which <span style="color: #FFD700;">nuclear plant</span> is closest to Americans?', 
+    title = 'Which <span style="color: #FFD700;">nuclear plant</span> is closest to the Americans?', 
     subtitle = "Each segment connects a city to its nearest nuclear power plant",
     caption = 'Cities with population > 15000<br>Inspired by **Robert Allison & Jack Merlin Bruce**<br>#30DayMapChallenge - Day 30 : **Remix** · Abdoul ISSA BIDA.'
   ) + 
@@ -32,7 +32,7 @@ select(matches("(plant|county)_")) |>
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.title = ggtext::element_markdown(face = "bold", size =rel(3)),
+    plot.title = ggtext::element_markdown(face = "bold", size =rel(2.5)),
     plot.subtitle = element_text(color = "grey35", face ="bold", size = rel(1.625)),
     plot.caption = ggtext::element_markdown(size = rel(1.5)),
     plot.background = element_rect(fill = "white", color = NA),
