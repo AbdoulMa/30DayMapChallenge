@@ -6,7 +6,7 @@
 Data/*
 challenges_things.R
 !Data/l1_teams_travels.csv
-Day*/*.pdf
+**/*.pdf
 Day*/*twitter.png
 Day*/*.aux
 Day*/*.log
