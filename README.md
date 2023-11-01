@@ -17,7 +17,7 @@ ___
 ___
 ## Day 3 - Polygons
 
-<a href="Day3"><img src="Day3/day3_2022_polished.png"/></a>
+<a href="Day3"><img src="2022/Day3/day3_2022_polished.png"/></a>
 
 ___
 ## Day 4 - Colour Friday: Green
