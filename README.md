@@ -2,7 +2,7 @@
 
 Code and plots of the submissions to the [#30DayMapChallenge](https://github.com/tjukanovt/30DayMapChallenge) 
 
-![Themes for the maps. See more below.](https://github.com/tjukanovt/30DayMapChallenge/raw/main/images/flyers/30dmc-2022.png)
+![Themes for the maps. See more below.](https://github.com/tjukanovt/30DayMapChallenge/raw/main/images/flyers/30dmc-2023.png)
 
 ___
 ## Day 1 - Points
