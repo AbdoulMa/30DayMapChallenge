@@ -79,7 +79,7 @@ final_dots_sf |>
 path <- here::here("2023/Day1", "day1")
 ggsave(glue::glue("{path}.pdf"), width = 20, height = 11, device = cairo_pdf)
 
-
+# Additional annotations with Illustrator
 pdftools::pdf_convert(
   pdf = glue::glue("{path}_polished.pdf"),
   filenames = glue::glue("{path}_polished.png"),
