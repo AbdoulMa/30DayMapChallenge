@@ -1,0 +1,36 @@
+##Descriptif du contenu des fichiers "regions"
+
+= Origine =
+
+Les données proviennent de la base de données cartographiques OpenStreetMap.
+Celles-ci ont été constituées à partir du cadastre mis à disposition par la DGFiP sur cadastre.gouv.fr.
+En complément sur Mayotte où le cadastre n'est pas disponible sur cadastre.gouv.fr, ce sont les limites du GEOFLA de l'IGN qui ont été utilisées ainsi que le tracé des côtes à partir des images aériennes de Bing.
+
+Plus d'infos: http://openstreetmap.fr/36680-communes
+
+
+= Format =
+
+Ces fichiers sont proposés au format shapefile, en projection WGS84.
+
+
+= Contenu = 
+
+Ces fichiers contiennent l'ensemble des régions françaises, y compris les DOM et Mayotte.
+
+Pour chaque région, les attributs suivants sont ajoutés:
+- code_insee: code INSEE à 2 chiffres de la région (ex: 42)
+- nom: nom de la région (ex: Alsace)
+- wikipedia: entrée wikipédia (code langue suivi du nom de l'article)
+- surf_km2: superficie de l'arrondissement en km2 sur le sphéroid WGS84
+- wikidata: identifiant wikidata correspondant à la région
+
+###Historique
+
+- 02-01-2017: basé sur le découpage communal OSM au 01-01-2017 avec fusion de 566 communes en 178 communes nouvelles.
+
+
+Versions prédécentes disponibles sur: http://osm13.openstreetmap.fr/~cquest/openfla/export/
+
+
+Pour toute question concernant ces exports, vous pouvez contacter exports@openstreetmap.fr

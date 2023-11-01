@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% Important to keep proportion appropriate with the original pdf
+\usepackage[paperheight=21.5cm, paperwidth=29.42cm, top=0cm, left=0cm, right=0cm, bottom=0cm]{geometry}
+\usepackage{multicol}
+\usepackage{graphicx,color}
+\usepackage{fontspec} 
+\usepackage[abs]{overpic}
+\usepackage{eepic}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\definecolor{bgcolor}{HTML}{343434}
+\definecolor{yellow}{HTML}{FDE14F}
+\setmainfont[Mapping=text-tex]{Mercury} % IBM Plex Sans, Mercury Display
+% define a specific font
+\newfontfamily\gothambold{Gotham Bold}
+
+
+\definecolor{hintergrund}{gray}{.99}
+\pagecolor{bgcolor}
+\linespread{1.2}
+\begin{document}
+\pagestyle{empty}
+\begin{center}
+\fontsize{12pt}{14pt}\selectfont
+% unit defines unit for the puts 
+\begin{overpic}[scale=1.8,unit=1cm]{day3.pdf}
+\put(7.25, 19){
+\colorbox{yellow}{\gothambold\fontsize{25}{22}\textbf{Teleworking Workers - Spring 2020}}
+} 
+\put(10, 17.5){
+\begin{minipage}[t]{9.5cm}
+\begin{center}
+\fontsize{18}{14}{\textcolor{white}{\textbf {557 millions people  \\[.5cm]
+ 1 in 5 workers was affected at the start of the pandemic}}
+}
+\end{center}
+\end{minipage}
+}
+
+\put(0.5, 9){
+\begin{minipage}[t]{7cm}
+\fontsize{10.5pt}{8pt}\selectfont
+\textcolor{white}{
+Prior to the COVID-19 pandemic, \textbf{7.9 per cent} of the
+world’s workforce, or approximately \textbf{260 million workers},
+were home-based workers.
+The COVID-19 pandemic and its associated restrictions  on movement and gatherings shifted these numbers dramatically. Overall, the ILO estimated that close to \textbf {18 percent of world's workers} are in occupations and live in countries with the infrastructure that allow them to work from home.
+Regional variations were also wide: around \textbf{30 per cent of North American and Western European workers} were estimated to be in occupations that allowed home-based work ass opposed to only \textbf{6 per cent of Sub-Saharan African and 8 percent of South Asian Workers}.
+}
+\end{minipage}
+}
+
+\end{overpic}
+\end{center}
+\end{document}
