@@ -13,3 +13,4 @@ Day*/*.log
 Day*/*.tex
 Day*/*.gz
 Day19/wc*
+**/2023/Day8/Countries/*
