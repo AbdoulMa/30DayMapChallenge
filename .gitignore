@@ -12,5 +12,7 @@ Day*/*.aux
 Day*/*.log
 Day*/*.tex
 Day*/*.gz
+Day*/*.ai
 Day19/wc*
 **/2023/Day8/Countries/*
+**/2023/Day29/Continents/*
